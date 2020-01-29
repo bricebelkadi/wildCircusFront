@@ -1,0 +1,25 @@
+.contentCircus, .contentShow {
+    display: flex;
+    flex-direction: column;
+}
+
+.contentCircusTitle, .contentShowTitle {
+    font-size: 3rem;
+}
+
+.contentCircusContent, .contentShowContent {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.circusCard, .showCard {
+    width: 30vw;
+}
+
+.circusCardImg, .circusShowImg {
+    width: 20vw;
+    height: 20vh;
+    object-fit: cover;
+}

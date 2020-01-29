@@ -1,1 +1,36 @@
-<p>content works!</p>
+<div class="contentContainer">
+    <div class="contentCircus">
+        <div class="contentCircusTitle">
+            All Our Circus across the world
+        </div>
+        <div class="contentCircusContent">
+            <div class="circusCard" *ngFor="let circus of allCircus">
+                <div class="circusCardTitle">
+                    {{circus.title}}
+                </div>
+                <div class="circusCardContent">
+                    <img [src]="circus.picture" [alt]="circus.title" class="circusCardImg">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="contentShow">
+        <div class="contentShowTitle">
+            All the performances
+        </div>
+        <div class="contentShowContent">
+            <div class="showCard" *ngFor="let show of allSpecialty">
+                <div class="showCardTitle">
+                    {{show.title}}
+                </div>
+                <div class="showCardContent">
+                    <img [src]="show.picture" [alt]="show.title" class="circusShowImg">
+                    <p>
+                        {{show.description}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
