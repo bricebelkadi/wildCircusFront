@@ -1,0 +1,32 @@
+.homePerformance, .homeAboutUs, .homeInformationContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.homePerformanceTitle, .homeAboutUsTitle, .homeInformationTitle {
+    font-size: 3rem;
+}
+
+.homePerformanceContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+}
+
+.performanceCard {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.performanceContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.performanceEmoji {
+    font-size: 10rem;
+}

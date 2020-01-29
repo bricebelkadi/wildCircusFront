@@ -1,10 +1,31 @@
 .headerContainer {
+    display: flex;
+    flex-direction: row;
     font-family:'Amatic SC';
     width: 100%;
-    height: 5rem;
     background-color: green;
 }
 
+.headerTitle {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.headerLinks {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 75%;
+}
+
+.headerLink {
+    font-size: 2rem;
+}   
+
 h1 {
-    margin: 0;
+    font-size: 4rem;
+    margin: 1rem;
 }

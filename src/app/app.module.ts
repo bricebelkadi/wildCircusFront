@@ -8,6 +8,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { InformationComponent } from './pages/information/information.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 @NgModule({
   declarations: [
@@ -17,10 +19,11 @@ import { FooterComponent } from './components/footer/footer.component';
     InformationComponent,
     HeaderComponent,
     FooterComponent
-  ],
+  ],  
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
