@@ -56,7 +56,7 @@ export class AdminShowComponent implements OnInit {
 
 
   artistStream = new BehaviorSubject<Artist[]>([]);
-  columnsToDisplayArtist = ['id', 'firstname', 'lastname', 'artistName', 'specialty'];
+  columnsToDisplayArtist = ['id', 'firstname', 'lastname', 'artistName', 'specialty', 'remove'];
   idPerformanceArtists: number;
 
   columnsToDisplayRestArtist = ['id', 'firstname', 'lastname', 'artistName', 'specialty', 'select'];

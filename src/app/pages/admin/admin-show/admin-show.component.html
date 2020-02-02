@@ -210,14 +210,28 @@
                 <mat-cell *matCellDef="let artist"> {{artist.artistName}} </mat-cell>
             </ng-container>
 
+            <ng-container matColumnDef="remove">
+                <mat-header-cell *matHeaderCellDef> Salope </mat-header-cell>
+                <mat-cell *matCellDef="let artist, let i = index">
+                    <button mat-stroked-button (click)="deleteArtist(i, artist)">Remove</button>
+                </mat-cell>
+            </ng-container>
 
 
-            // <ng-container matColumnDef="remove">
-            //     <mat-header-cell *matHeaderCellDef> Remove </mat-header-cell>
-            //     <mat-cell *matCellDef="let artist, let i = index">
-            //         <button mat-stroked-button (click)="deleteArtist(i, artist)">Remove</button>
-            //     </mat-cell>
-            // </ng-container>
+
+
+            // <ng-container matColumnDef="removed">
+                // <mat-header-cell *matHeaderCellDef> Remove </mat-header-cell>
+                // // <mat-cell *matCellDef="let artist, let i = index">
+                    // // </mat-cell>
+
+                // // <th mat-header-cell *matHeaderCellDef>
+                    // // </th>
+                // <mat-cell *matCellDef="let artist, let i = index">
+                    // <button mat-stroked-button (click)="deleteArtist(i, artist)">Remove</button>
+                    // </mat-cell>
+
+                // </ng-container>
 
 
 
@@ -275,7 +289,7 @@
 
 
 
-            <mat-header-row *matHeaderRowDef="columnsToDisplayArtist" style="display:none;"></mat-header-row>
+            <mat-header-row *matHeaderRowDef="columnsToDisplayRestArtist" style="display:none;"></mat-header-row>
             <mat-row *matRowDef="let row; columns: columnsToDisplayRestArtist;"> </mat-row>
         </mat-table>
 
