@@ -12,4 +12,12 @@ export class SpecialtyService {
   getAllSpecialty() {
     return this.wsh.get(env.urlBack + 'specialty');
   }
+
+  postNewSpecialty(obj: any) {
+    return this.wsh.post(env.urlBack + 'specialty', obj)
+  }
+
+  putSpecialty(id: number, obj: any) {
+    return this.wsh.put(env.urlBack + 'specialty/' + id.toString(), obj)
+  }
 }
