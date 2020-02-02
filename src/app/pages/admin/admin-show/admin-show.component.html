@@ -87,7 +87,8 @@
         </mat-expansion-panel-header>
         <button mat-stroked-button (click)="addNewPerformance()">Add a new Performance</button>
 
-        <mat-table [dataSource]="performanceStream" class="mat-elevation-z8" cdkDropList (cdkDropListDropped)="drop($event)">
+        <mat-table [dataSource]="performanceStream" class="mat-elevation-z8" cdkDropList
+            (cdkDropListDropped)="drop($event)">
 
             <!-- Name Column -->
             <ng-container matColumnDef="id">
@@ -135,7 +136,7 @@
 
             <ng-container matColumnDef="duration">
                 <mat-header-cell *matHeaderCellDef> Duration </mat-header-cell>
-                <mat-cell *matCellDef="let performance, let i = index">  
+                <mat-cell *matCellDef="let performance, let i = index">
                     <span *ngIf="!whoIsModifiedPerformance[i]">
                         {{durations[performance.duration]}}
                     </span>
@@ -147,7 +148,7 @@
                             </mat-option>
                         </mat-select>
                     </span>
-                    </mat-cell>
+                </mat-cell>
             </ng-container>
 
             <!-- Symbol Column -->
@@ -165,7 +166,8 @@
 
 
             <mat-header-row *matHeaderRowDef="columnsToDisplayPerformance"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: columnsToDisplayPerformance;" (click)="displayArtists(row.id)" cdkDrag>
+            <mat-row *matRowDef="let row; columns: columnsToDisplayPerformance;" (click)="displayArtists(row.id)"
+                cdkDrag>
             </mat-row>
         </mat-table>
     </mat-expansion-panel>
@@ -210,9 +212,73 @@
 
 
 
+            // <ng-container matColumnDef="remove">
+            //     <mat-header-cell *matHeaderCellDef> Remove </mat-header-cell>
+            //     <mat-cell *matCellDef="let artist, let i = index">
+            //         <button mat-stroked-button (click)="deleteArtist(i, artist)">Remove</button>
+            //     </mat-cell>
+            // </ng-container>
+
+
+
+
             <mat-header-row *matHeaderRowDef="columnsToDisplayArtist"></mat-header-row>
             <mat-row *matRowDef="let row; columns: columnsToDisplayArtist;"> </mat-row>
         </mat-table>
+
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+
+        <button mat-button (click)="showSelect()"> Add selected artist to Performance</button>
+
+        <mat-table [dataSource]="dataSourceRestArtist" class="mat-elevation-z8">
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="id">
+                // <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+                <mat-cell *matCellDef="let artist"> {{artist.id}} </mat-cell>
+            </ng-container>
+
+            <!-- Weight Column -->
+            <ng-container matColumnDef="specialty">
+                <mat-header-cell *matHeaderCellDef> Specialty </mat-header-cell>
+                <mat-cell *matCellDef="let artist"> {{artist.specialty.title}} </mat-cell>
+            </ng-container>
+
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="firstname">
+                <mat-header-cell *matHeaderCellDef> First Name </mat-header-cell>
+                <mat-cell *matCellDef="let artist"> {{artist.firstname}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="lastname">
+                <mat-header-cell *matHeaderCellDef> Last Name </mat-header-cell>
+                <mat-cell *matCellDef="let artist"> {{artist.lastname}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="artistName">
+                <mat-header-cell *matHeaderCellDef> Artist Name </mat-header-cell>
+                <mat-cell *matCellDef="let artist"> {{artist.artistName}} </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                </th>
+                <mat-cell *matCellDef="let artist">
+                    <mat-checkbox (click)="$event.stopPropagation() && showSelect()"
+                        (change)="$event ? selection.toggle(artist) && showSelect() : null"
+                        [checked]="selection.isSelected(artist)">
+                    </mat-checkbox>
+                </mat-cell>
+            </ng-container>
+
+
+
+            <mat-header-row *matHeaderRowDef="columnsToDisplayArtist" style="display:none;"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: columnsToDisplayRestArtist;"> </mat-row>
+        </mat-table>
+
     </mat-expansion-panel>
 
 

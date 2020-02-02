@@ -29,5 +29,9 @@ export class PerformanceService {
     return this.wsh.put(env.urlBack + 'performance/' + id.toString(), obj)
   }
 
+  updateArtistPerformance(obj: any) {
+    return this.wsh.put(env.urlBack + 'performance/artist/', obj)
+  }
+
 
 }

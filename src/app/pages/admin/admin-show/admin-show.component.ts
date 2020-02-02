@@ -12,6 +12,9 @@ import { SpecialtyService } from '../../../shared/services/specialty.service';
 import { Time } from '../../../core/time';
 import { Duration } from '../../../core/duration';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { ArtistService } from '../../../shared/services/artist.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { SelectionModel } from '@angular/cdk/collections';
 
 
 
@@ -54,12 +57,20 @@ export class AdminShowComponent implements OnInit {
 
   artistStream = new BehaviorSubject<Artist[]>([]);
   columnsToDisplayArtist = ['id', 'firstname', 'lastname', 'artistName', 'specialty'];
+  idPerformanceArtists: number;
+
+  columnsToDisplayRestArtist = ['id', 'firstname', 'lastname', 'artistName', 'specialty', 'select'];
+
+  dataSourceRestArtist: MatTableDataSource<Artist> = new MatTableDataSource([]);
+
+  selection = new SelectionModel<Artist>(true, []);
 
 
   constructor(private showService: ShowService,
     private perfoService: PerformanceService,
     private circusService: CircusService,
-    private speService: SpecialtyService) { }
+    private speService: SpecialtyService,
+    private artService: ArtistService) { }
 
   ngOnInit() {
     // Get All Circus
@@ -237,10 +248,63 @@ export class AdminShowComponent implements OnInit {
     if (id) {
       this.perfoService.getOnePerformance(id).subscribe((results: Performance) => {
         this.artistStream.next(results.artists);
+        this.idPerformanceArtists = results.id;
+        this.getRestArtists(results.id);
         this.isOpen = [false, false, true];
       });
     }
   }
 
+  getRestArtists(idPerf: number) {
+    this.artService.getRestArtist(idPerf).subscribe((results: Artist[]) => {
+      this.dataSourceRestArtist.data = results;
+    })
+  }
 
+  applyFilter(filterValue: string) {
+    this.dataSourceRestArtist.filter = filterValue.trim().toLowerCase();
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSourceRestArtist.data.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.dataSourceRestArtist.data.forEach(row => this.selection.select(row));
+  }
+
+  showSelect() {
+    const currentValue = this.artistStream.getValue();
+    for (const artist of this.selection.selected) {
+      const index = this.dataSourceRestArtist.data.indexOf(artist);
+      this.dataSourceRestArtist.data.splice(index, 1);
+      currentValue.push(artist);
+    }
+    this.dataSourceRestArtist._updateChangeSubscription();
+    this.artistStream.next(currentValue)
+
+    const perfToPut = {
+      id: this.idPerformanceArtists,
+      artists : currentValue
+    }
+
+    this.perfoService.updateArtistPerformance(perfToPut).subscribe();
+  }
+
+  deleteArtist(index: number, artist: Artist) {
+    const currentValue = this.artistStream.getValue();
+    currentValue.splice(index, 1);
+    this.dataSourceRestArtist.data.push(artist);
+    this.dataSourceRestArtist._updateChangeSubscription();
+    this.artistStream.next(currentValue);
+    const perfToPut = {
+      id: this.idPerformanceArtists,
+      artists : currentValue
+    };
+    this.perfoService.updateArtistPerformance(perfToPut).subscribe();
+  }
 }
